@@ -3,11 +3,12 @@ import pandas as pd
 
 app = Flask(__name__)
 
-
+stations = pd.read_csv("data_small/stations.txt", skiprows=17)
+stations = stations[["STAID", "STANAME                                 "]]
 #You can duplicate this function if you want to add more pages, you would cahnge the route and template
 @app.route("/")
 def home():
-    return render_template("home.html")
+    return render_template("home.html", data=stations.to_html())
 
 
 @app.route("/api/v1/<station>/<date>")
